@@ -1,5 +1,11 @@
 from utils import *
 from sklearn.model_selection import train_test_split
+from sklearn.neural_network import MLPRegressor
+from sklearn.svm import SVR
+from sklearn.gaussian_process import GaussianProcessRegressor
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.linear_model import SGDRegressor
+
 
 train_file = 'data/train.csv'
 test_file = 'data/test.csv'
@@ -51,11 +57,24 @@ def test(x, y):
 
 
 if __name__ == '__main__':
-    score, model = nn(x_train, x_test, y_train, y_test, [128, 32, 8])
-    #train(x_train, y_train)
-    #score = test(x_train, y_train)
-    print(score)
-    '''
+    # Define the regression model
+    models = [SVR(), GaussianProcessRegressor(), DecisionTreeRegressor(), SGDRegressor(), MLPRegressor([16, 4])]
+    # train and get test score
+    for m in models:
+        print("Training ", m)
+        score, model = fit_test(m, x_train, x_test, y_train, y_test)
+        print(score)
+        '''
+        SVR:1.78
+        GPR:14
+        DTR:2.14
+        SGD:nan
+        NN: 2.68
+        '''
+
+    # train(x_train, y_train)
+    # score = test(x_train, y_train)
+    ''' This is the final output
     ids, x_final = read_content(load_csv_data(test_file))
     x_final = np.log(x_final + 1)
     preds = model.predict(x_final)

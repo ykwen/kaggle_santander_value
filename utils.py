@@ -3,7 +3,6 @@ import numpy as np
 import tensorflow as tf
 from sklearn import preprocessing
 from sklearn.decomposition import PCA
-from sklearn.neural_network import MLPRegressor
 
 
 def load_csv_data(path):
@@ -67,13 +66,12 @@ def decomposing(x, n, flag):
     return pca.fit_transform(x)
 
 
-def nn(x_train, x_test, y_train, y_test, size):
+def fit_test(model, x_train, x_test, y_train, y_test):
     y_train = [y[0] for y in y_train]
     y_test = [y[0] for y in y_test]
-    l = MLPRegressor(size)
-    l.fit(x_train, y_train)
-    p = l.predict(x_test)
-    return cal_loss(p, y_test), l
+    model.fit(x_train, y_train)
+    p = model.predict(x_test)
+    return cal_loss(p, y_test), model
 
 
 class NN:
