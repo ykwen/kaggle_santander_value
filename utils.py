@@ -37,7 +37,7 @@ def cal_loss(preds, y):
 
 
 def write_csv(idx, target, path):
-    with open(path, 'w') as f:
+    with open(path, 'w+') as f:
         f.write('ID,target\n')
         for i, id, t in enumerate(zip(idx, target)):
             f.write(id+','+str(t))
@@ -73,7 +73,7 @@ def nn(x_train, x_test, y_train, y_test, size):
     l = MLPRegressor(size)
     l.fit(x_train, y_train)
     p = l.predict(x_test)
-    return cal_loss(p, y_test)
+    return cal_loss(p, y_test), l
 
 
 class NN:

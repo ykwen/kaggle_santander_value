@@ -5,11 +5,12 @@ train_file = 'data/train.csv'
 test_file = 'data/test.csv'
 model_check_path = 'model/nn/nn0'
 summary_path = 'model/nn/summary'
+predict_file = 'data/predict.csv'
 
 train_data = load_csv_data(train_file)
 _, y, x = read_content(train_data)
 
-x = standardize(x)
+x = standardize(np.log(x+1))
 #y = normalize(y)
 
 theta = 0.2
@@ -50,7 +51,14 @@ def test(x, y):
 
 
 if __name__ == '__main__':
-    score = nn(x_train, x_test, y_train, y_test, [128, 32, 8])
+    score, model = nn(x_train, x_test, y_train, y_test, [128, 32, 8])
     #train(x_train, y_train)
     #score = test(x_train, y_train)
     print(score)
+    '''
+    ids, x_final = read_content(load_csv_data(test_file))
+    x_final = np.log(x_final + 1)
+    preds = model.predict(x_final)
+    write_csv(ids, preds, predict_file)
+    '''
+
