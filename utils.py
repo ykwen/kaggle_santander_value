@@ -54,11 +54,11 @@ def get_order_batch(data, batch_size):
 
 # Applying standardize, normalize, PCA, whitening
 def standardize(x):
-    return preprocessing.scale(x)
+    return preprocessing.StandardScaler().fit_transform(x)
 
 
 def normalize(x, y=None):
-    return preprocessing.Normalizer().fit_transform(x, y)
+    return preprocessing.normalize(x)
 
 
 def decomposing(x, n, flag):
@@ -72,6 +72,14 @@ def fit_test(model, x_train, x_test, y_train, y_test):
     model.fit(x_train, y_train)
     p = model.predict(x_test)
     return cal_loss(p, y_test), model
+
+
+def test_models(model, x_test, y_test):
+    preds = []
+    for m in model:
+        preds.append(m.predict(x_test))
+    pred = np.mean(preds, axis=0)
+    return cal_loss(pred, y_test)
 
 
 class NN:
