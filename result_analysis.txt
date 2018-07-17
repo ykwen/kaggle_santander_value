@@ -1,26 +1,27 @@
 Preprocessing:
     normalize (prescale to 1 variance)
-    standarderize (rescale to 0 mean)
+    standardize (rescale to 0 mean)
     PCA
 
 Different Models:
-    with preprocessing: log(x+1) and scale(x):
-        SVR:1.78
-        GPR:14
-        DTR:2.14
-        SGD:nan
-        NN: 2.68, would be nan after too much training
-        SVR+DTR+NN(16,4)+NN(64,16)=1.77+2.07+2.61+3.11=1.76
+    Traditional ML:
+        with prepossessing: log(x+1) and scale(x):
+            SVR:1.78
+            GPR:14
+            DTR:2.14
+            SGD:nan
+            NN: 2.68, would be nan after too much training
+            SVR+DTR+NN(16,4)+NN(64,16)=1.77+2.07+2.61+3.11=1.76
 
-    with preprocessing: normalize(x) and standardscale(x):
-        SVR+DTR = 1.72 + 2.23 =1.76 # SVR gets better while DTR gets worse
+        with prepossessing: normalize(x) and standardscale(x):
+            SVR+DTR = 1.72 + 2.23 =1.76 # SVR gets better while DTR gets worse
 
-    with preprocessing: log(x+1), normalize(x) and standardscale(x):
-        SVR:1.74
-        DTR:2.36
+        with prepossessing: log(x+1), normalize(x) and standardscale(x):
+            SVR:1.74
+            DTR:2.36
 
-    with preprocessing: None:
-        SVR: 1.76
-        DTR: 2.02
+        with prepossessing: None:
+            SVR: 1.76
+            DTR: 2.02
 
 Using unsupervised data:
