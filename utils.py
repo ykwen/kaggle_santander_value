@@ -113,7 +113,8 @@ class NN:
             self.output = tf.get_variable('output', [batch_size, x_size], tf.float32)
         self.output = self.x
         for one_w, one_b in zip(self.w, self.b):
-            self.output = tf.add(tf.matmul(self.output, one_w), one_b)
+            # Using ReLU neuron
+            self.output = tf.add(tf.max(tf.matmul(self.output, one_w), 0), one_b)
 
         self.output = tf.nn.dropout(self.output, keep_prob=self.keep_prob)
 
