@@ -61,7 +61,7 @@ def normalize(x, y=None):
     return preprocessing.normalize(x)
 
 
-def decomposing(x, n, flag):
+def decomposing(x, n, flag=False):
     pca = PCA(n_components=n, whiten=flag)
     return pca.fit_transform(x)
 
