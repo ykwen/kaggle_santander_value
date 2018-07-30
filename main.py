@@ -18,6 +18,7 @@ _, y, x = read_content(train_data)
 
 x = normalize(np.log(x+1))
 x = standardize(x)
+x = decomposing(x, 10)
 # y = normalize(y)
 
 theta = 0.2
